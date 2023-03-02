@@ -21,7 +21,7 @@
 #define FDB_LOG_TAG "[sample][tsdb]"
 
 #ifdef FDB_USING_TIMESTAMP_64BIT
-#define __PRITS "ld"
+#define __PRITS "lld"
 #else
 #define __PRITS "d"
 #endif
@@ -92,7 +92,11 @@ void tsdb_sample(fdb_tsdb_t tsdb)
 static bool query_cb(fdb_tsl_t tsl, void *arg)
 {
     struct fdb_blob blob;
-    struct env_status status;
+    struct env_status status = 
+    {
+        .temp = 0,
+        .humi = 0
+    };
     fdb_tsdb_t db = arg;
 
     fdb_blob_read((fdb_db_t) db, fdb_tsl_to_blob(tsl, fdb_blob_make(&blob, &status, sizeof(status))));
@@ -104,7 +108,11 @@ static bool query_cb(fdb_tsl_t tsl, void *arg)
 static bool query_by_time_cb(fdb_tsl_t tsl, void *arg)
 {
     struct fdb_blob blob;
-    struct env_status status;
+    struct env_status status = 
+    {
+        .temp = 0,
+        .humi = 0
+    };
     fdb_tsdb_t db = arg;
 
     fdb_blob_read((fdb_db_t) db, fdb_tsl_to_blob(tsl, fdb_blob_make(&blob, &status, sizeof(status))));

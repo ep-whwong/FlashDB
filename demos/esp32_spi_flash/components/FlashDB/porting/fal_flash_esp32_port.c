@@ -91,7 +91,7 @@ static int erase(long offset, size_t size)
 }
 
 const struct fal_flash_dev nor_flash0 =
-    {
+{
         .name = NOR_FLASH_DEV_NAME,
         .addr = 0x0,                      // address is relative to beginning of partition; 0x0 is start of the partition
         .len = 32 * 1024,                 // size of the partition as specified in partitions.csv
