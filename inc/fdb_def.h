@@ -27,12 +27,12 @@ extern "C" {
 
 /* the KV cache table size, it will improve KV search speed when using cache */
 #ifndef FDB_KV_CACHE_TABLE_SIZE
-#define FDB_KV_CACHE_TABLE_SIZE        64
+#define FDB_KV_CACHE_TABLE_SIZE        256
 #endif
 
 /* the sector cache table size, it will improve KV save speed when using cache */
 #ifndef FDB_SECTOR_CACHE_TABLE_SIZE
-#define FDB_SECTOR_CACHE_TABLE_SIZE    4
+#define FDB_SECTOR_CACHE_TABLE_SIZE    16
 #endif
 
 #if (FDB_KV_CACHE_TABLE_SIZE > 0) && (FDB_SECTOR_CACHE_TABLE_SIZE > 0)
