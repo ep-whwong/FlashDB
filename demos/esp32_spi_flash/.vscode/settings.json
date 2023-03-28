@@ -19,6 +19,13 @@
         "esp_spi_flash.h": "c",
         "esp_partition.h": "c",
         "esp_log.h": "c",
-        "string.h": "c"
+        "string.h": "c",
+        "condition_variable": "c",
+        "*.tcc": "c",
+        "fstream": "c",
+        "mutex": "c",
+        "ostream": "c",
+        "stop_token": "c",
+        "functional": "c"
     }
 }

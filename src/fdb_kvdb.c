@@ -1647,6 +1647,12 @@ fdb_err_t fdb_kvdb_init(fdb_kvdb_t db, const char *name, const char *path, struc
     FDB_ASSERT((FDB_GC_EMPTY_SEC_THRESHOLD > 0 && FDB_GC_EMPTY_SEC_THRESHOLD < SECTOR_NUM))
 
 #ifdef FDB_KV_USING_CACHE
+    db->sector_cache_table = malloc(sizeof(struct sector_cache_node) * FDB_SECTOR_CACHE_TABLE_SIZE);
+    FDB_ASSERT(db->sector_cache_table != NULL);
+
+    db->kv_cache_table = malloc(sizeof(struct kv_cache_node) * FDB_KV_CACHE_TABLE_SIZE);
+    FDB_ASSERT(db->kv_cache_table != NULL);
+
     for (i = 0; i < FDB_SECTOR_CACHE_TABLE_SIZE; i++) {
         db->sector_cache_table[i].addr = FDB_DATA_UNUSED;
     }
@@ -1681,6 +1687,9 @@ __exit:
  */
 fdb_err_t fdb_kvdb_deinit(fdb_kvdb_t db)
 {
+    free(db->kv_cache_table);
+    free(db->sector_cache_table);
+
     _fdb_deinit((fdb_db_t) db);
 
     return FDB_NO_ERR;

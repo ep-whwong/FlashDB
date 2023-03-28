@@ -168,6 +168,8 @@ int fal_partition_init(void)
     }
 
 #ifdef FAL_PART_HAS_TABLE_CFG
+    /* To create partition table dynamically */
+
     partition_table = &partition_table_def[0];
     partition_table_len = sizeof(partition_table_def) / sizeof(partition_table_def[0]);
 #else

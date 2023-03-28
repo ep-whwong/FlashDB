@@ -27,12 +27,12 @@ extern "C" {
 
 /* the KV cache table size, it will improve KV search speed when using cache */
 #ifndef FDB_KV_CACHE_TABLE_SIZE
-#define FDB_KV_CACHE_TABLE_SIZE        256
+#define FDB_KV_CACHE_TABLE_SIZE        2048
 #endif
 
 /* the sector cache table size, it will improve KV save speed when using cache */
 #ifndef FDB_SECTOR_CACHE_TABLE_SIZE
-#define FDB_SECTOR_CACHE_TABLE_SIZE    16
+#define FDB_SECTOR_CACHE_TABLE_SIZE    1024
 #endif
 
 #if (FDB_KV_CACHE_TABLE_SIZE > 0) && (FDB_SECTOR_CACHE_TABLE_SIZE > 0)
@@ -293,9 +293,11 @@ struct fdb_kvdb {
 
 #ifdef FDB_KV_USING_CACHE
     /* KV cache table */
-    struct kv_cache_node kv_cache_table[FDB_KV_CACHE_TABLE_SIZE];
+    // struct kv_cache_node kv_cache_table[FDB_KV_CACHE_TABLE_SIZE];
+    struct kv_cache_node *kv_cache_table;
     /* sector cache table, it caching the sector info which status is current using */
-    struct sector_cache_node sector_cache_table[FDB_SECTOR_CACHE_TABLE_SIZE];
+    // struct sector_cache_node sector_cache_table[FDB_SECTOR_CACHE_TABLE_SIZE];
+    struct sector_cache_node *sector_cache_table;
 #endif /* FDB_KV_USING_CACHE */
 
 #ifdef FDB_KV_AUTO_UPDATE
