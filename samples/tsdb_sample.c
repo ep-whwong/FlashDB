@@ -92,11 +92,11 @@ void tsdb_sample(fdb_tsdb_t tsdb)
 static bool query_cb(fdb_tsl_t tsl, void *arg)
 {
     struct fdb_blob blob;
-    struct env_status status;
+    struct env_status status = {0};
     fdb_tsdb_t db = arg;
 
     fdb_blob_read((fdb_db_t) db, fdb_tsl_to_blob(tsl, fdb_blob_make(&blob, &status, sizeof(status))));
-    FDB_INFO("[query_cb] queried a TSL: time: %" __PRITS ", temp: %d, humi: %d\n", tsl->time, status.temp, status.humi);
+    FDB_INFO("[query_cb] queried a TSL: time: %" __PRITS ", temp: %d, humi: %d\n", (int) tsl->time, status.temp, status.humi);
 
     return false;
 }
@@ -104,11 +104,11 @@ static bool query_cb(fdb_tsl_t tsl, void *arg)
 static bool query_by_time_cb(fdb_tsl_t tsl, void *arg)
 {
     struct fdb_blob blob;
-    struct env_status status;
+    struct env_status status = {0};
     fdb_tsdb_t db = arg;
 
     fdb_blob_read((fdb_db_t) db, fdb_tsl_to_blob(tsl, fdb_blob_make(&blob, &status, sizeof(status))));
-    FDB_INFO("[query_by_time_cb] queried a TSL: time: %" __PRITS ", temp: %d, humi: %d\n", tsl->time, status.temp, status.humi);
+    FDB_INFO("[query_by_time_cb] queried a TSL: time: %" __PRITS ", temp: %d, humi: %d\n", (int) tsl->time, status.temp, status.humi);
 
     return false;
 }
@@ -117,7 +117,7 @@ static bool set_status_cb(fdb_tsl_t tsl, void *arg)
 {
     fdb_tsdb_t db = arg;
 
-    FDB_INFO("set the TSL (time %" __PRITS ") status from %d to %d\n", tsl->time, tsl->status, FDB_TSL_USER_STATUS1);
+    FDB_INFO("set the TSL (time %" __PRITS ") status from %d to %d\n", (int) tsl->time, tsl->status, FDB_TSL_USER_STATUS1);
     fdb_tsl_set_status(db, tsl, FDB_TSL_USER_STATUS1);
 
     return false;
