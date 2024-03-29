@@ -10,4 +10,5 @@ list (APPEND SOURCES "../../../samples/kvdb_basic_sample.c" "../../../samples/kv
 
 idf_component_register(SRCS "${SOURCES}"
                     INCLUDE_DIRS "../components/FlashDB/inc" "../../../inc" "../../../port/fal/inc"
-                    REQUIRES "spi_flash")
+                    REQUIRES "esp_partition" "nvs_flash"
+                    PRIV_REQUIRES "spi_flash")
